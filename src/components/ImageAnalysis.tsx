@@ -2,8 +2,9 @@ import { useState, useCallback } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Upload, Eye, Camera, AlertCircle, CheckCircle, Clock } from 'lucide-react';
+import { Upload, Eye, Camera, AlertCircle, CheckCircle, Clock, Zap } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { GoogleVisionAPI } from '@/utils/GoogleVisionAPI';
 
 export const ImageAnalysis = () => {
   const [dragActive, setDragActive] = useState(false);
@@ -57,29 +58,29 @@ export const ImageAnalysis = () => {
   };
 
   const analyzeImage = async () => {
+    if (!uploadedImage) return;
+    
     setAnalyzing(true);
     
-    // Simulate AI analysis
-    await new Promise(resolve => setTimeout(resolve, 3000));
-    
-    const analysisResults = {
-      visionStrength: Math.floor(Math.random() * 40) + 60, // 60-100%
-      conditions: [
-        { name: "Myopia (Nearsightedness)", probability: Math.floor(Math.random() * 30) + 20 },
-        { name: "Astigmatism", probability: Math.floor(Math.random() * 25) + 15 },
-        { name: "Hyperopia (Farsightedness)", probability: Math.floor(Math.random() * 20) + 10 }
-      ],
-      recommendation: "Regular eye checkup recommended",
-      confidence: Math.floor(Math.random() * 20) + 80
-    };
-    
-    setResults(analysisResults);
-    setAnalyzing(false);
-    
-    toast({
-      title: "Analysis Complete",
-      description: "Eye image analysis has been completed successfully.",
-    });
+    try {
+      const analysisResults = await GoogleVisionAPI.analyzeEyeImage(uploadedImage);
+      
+      setResults(analysisResults);
+      
+      toast({
+        title: "AI Analysis Complete",
+        description: "Real AI-powered eye analysis completed successfully.",
+      });
+    } catch (error) {
+      console.error('Analysis error:', error);
+      toast({
+        title: "Analysis Failed",
+        description: error instanceof Error ? error.message : "Failed to analyze image. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setAnalyzing(false);
+    }
   };
 
   const resetAnalysis = () => {
@@ -92,12 +93,20 @@ export const ImageAnalysis = () => {
     <section className="py-20 bg-gradient-subtle">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
+          <div className="flex items-center justify-center mb-4">
+            <div className="flex items-center space-x-2">
+              <Zap className="h-6 w-6 text-primary" />
+              <Badge variant="medical" className="text-sm font-medium">
+                Real Google AI Powered
+              </Badge>
+            </div>
+          </div>
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            AI Image Analysis
+            AI Eye Analysis
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Upload or drag an eye image for instant AI-powered vision analysis. 
-            Our advanced algorithms can detect potential vision issues.
+            Upload or drag an eye image for instant Google Vision AI analysis. 
+            Our real AI integration provides accurate vision assessment.
           </p>
         </div>
 
@@ -134,7 +143,7 @@ export const ImageAnalysis = () => {
                       id="image-upload"
                     />
                     <label htmlFor="image-upload">
-                      <Button variant="ai-glow" size="lg" className="cursor-pointer">
+                      <Button variant="medical" size="lg" className="cursor-pointer">
                         <Camera className="h-5 w-5 mr-2" />
                         Select Image
                       </Button>
@@ -206,6 +215,14 @@ export const ImageAnalysis = () => {
 
                 {results && !analyzing && (
                   <div className="space-y-6">
+                    {/* Google AI Badge */}
+                    <div className="flex items-center justify-center mb-4">
+                      <Badge variant="medical" className="text-xs">
+                        <Zap className="h-3 w-3 mr-1" />
+                        Analyzed with Google Vision AI
+                      </Badge>
+                    </div>
+
                     {/* Vision Strength */}
                     <div>
                       <div className="flex justify-between items-center mb-2">
@@ -222,15 +239,33 @@ export const ImageAnalysis = () => {
                       </div>
                     </div>
 
+                    {/* AI Detection Details */}
+                    {results.details && (
+                      <div className="bg-muted/30 p-4 rounded-lg">
+                        <h4 className="font-medium mb-3 text-sm">AI Detection Results</h4>
+                        <div className="grid grid-cols-2 gap-2 text-xs">
+                          <div>Eye Detected: <span className="font-medium text-green-600">✓ Yes</span></div>
+                          <div>Image Quality: <span className="font-medium">{results.details.imageQuality}</span></div>
+                          <div>Pupil Analysis: <span className="font-medium">{results.details.pupilSize}</span></div>
+                          <div>Eye Features: <span className="font-medium">{results.details.eyeColor}</span></div>
+                        </div>
+                        {results.details.potentialIssues.length > 0 && (
+                          <div className="mt-2 text-xs text-yellow-600">
+                            <strong>Notes:</strong> {results.details.potentialIssues.join(', ')}
+                          </div>
+                        )}
+                      </div>
+                    )}
+
                     {/* Potential Conditions */}
                     <div>
-                      <h4 className="font-medium mb-3">Potential Conditions</h4>
+                      <h4 className="font-medium mb-3">AI-Detected Conditions</h4>
                       <div className="space-y-2">
                         {results.conditions.map((condition: any, index: number) => (
                           <div key={index} className="flex justify-between items-center">
                             <span className="text-sm">{condition.name}</span>
                             <Badge variant="outline">
-                              {condition.probability}% risk
+                              {condition.probability}% probability
                             </Badge>
                           </div>
                         ))}
@@ -240,11 +275,11 @@ export const ImageAnalysis = () => {
                     {/* Confidence & Recommendation */}
                     <div className="pt-4 border-t border-border">
                       <div className="flex justify-between items-center mb-2">
-                        <span className="text-sm text-muted-foreground">AI Confidence</span>
+                        <span className="text-sm text-muted-foreground">Google AI Confidence</span>
                         <span className="text-sm font-medium">{results.confidence}%</span>
                       </div>
                       <p className="text-sm bg-muted/50 p-3 rounded-lg">
-                        <strong>Recommendation:</strong> {results.recommendation}
+                        <strong>AI Recommendation:</strong> {results.recommendation}
                       </p>
                     </div>
                   </div>
@@ -252,12 +287,18 @@ export const ImageAnalysis = () => {
 
                 {!analyzing && !results && (
                   <div className="text-center py-8">
+                    <div className="flex items-center justify-center mb-4">
+                      <Badge variant="medical" className="text-xs">
+                        <Zap className="h-3 w-3 mr-1" />
+                        Powered by Google Vision AI
+                      </Badge>
+                    </div>
                     <p className="text-muted-foreground mb-4">
-                      Image uploaded successfully. Click below to start AI analysis.
+                      Image uploaded successfully. Click below to start real AI analysis with Google Vision.
                     </p>
-                    <Button onClick={analyzeImage} variant="ai-glow" size="lg">
-                      <Eye className="h-5 w-5 mr-2" />
-                      Analyze Eye Image
+                    <Button onClick={analyzeImage} variant="medical" size="lg">
+                      <Zap className="h-5 w-5 mr-2" />
+                      Analyze with Google AI
                     </Button>
                   </div>
                 )}
