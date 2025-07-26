@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Brain, Eye, Shield, Zap } from "lucide-react";
+import { Link } from "react-router-dom";
 import heroBackground from "@/assets/hero-background.png";
 
 export const Hero = () => {
@@ -57,14 +58,18 @@ export const Hero = () => {
               Experience the future of vision care with premium AI-powered diagnostics.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start">
-              <Button variant="ai-glow" size="xl" className="shadow-luxury text-lg px-8 py-4">
-                <Eye className="h-6 w-6 mr-3" />
-                Start Premium Test
-              </Button>
-              <Button variant="glass" size="xl" className="text-white border-white/30 hover:bg-white/10 text-lg px-8 py-4">
-                <Brain className="h-6 w-6 mr-3" />
-                Learn More
-              </Button>
+              <Link to="/tests">
+                <Button variant="ai-glow" size="xl" className="shadow-luxury text-lg px-8 py-4">
+                  <Eye className="h-6 w-6 mr-3" />
+                  Start Premium Test
+                </Button>
+              </Link>
+              <Link to="/about">
+                <Button variant="glass" size="xl" className="text-white border-white/30 hover:bg-white/10 text-lg px-8 py-4">
+                  <Brain className="h-6 w-6 mr-3" />
+                  Learn More
+                </Button>
+              </Link>
             </div>
           </div>
 
