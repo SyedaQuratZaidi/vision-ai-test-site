@@ -72,12 +72,17 @@ export default {
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',
 				'gradient-hero': 'var(--gradient-hero)',
-				'gradient-card': 'var(--gradient-card)'
+				'gradient-card': 'var(--gradient-card)',
+				'gradient-luxury': 'var(--gradient-luxury)',
+				'gradient-glass': 'var(--gradient-glass)',
+				'gradient-subtle': 'var(--gradient-subtle)'
 			},
 			boxShadow: {
 				'medical': 'var(--shadow-medical)',
 				'card-medical': 'var(--shadow-card)',
-				'glow': 'var(--shadow-glow)'
+				'glow': 'var(--shadow-glow)',
+				'luxury': 'var(--shadow-luxury)',
+				'glass': 'var(--shadow-glass)'
 			},
 			transitionTimingFunction: {
 				'medical': 'var(--transition-medical)',
