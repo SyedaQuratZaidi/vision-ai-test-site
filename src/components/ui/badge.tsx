@@ -15,7 +15,9 @@ const badgeVariants = cva(
         destructive:
           "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
         outline: "text-foreground",
-        medical: "border-transparent bg-gradient-primary text-primary-foreground shadow-medical",
+        medical: "border-transparent bg-gradient-primary text-primary-foreground shadow-medical hover:shadow-glow transition-all duration-300",
+        glass: "border-white/30 bg-gradient-glass backdrop-blur-sm text-foreground shadow-glass",
+        luxury: "border-transparent bg-gradient-luxury text-primary-foreground shadow-luxury hover:shadow-glow transition-all duration-300",
       },
     },
     defaultVariants: {

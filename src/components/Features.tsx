@@ -55,38 +55,50 @@ const features = [
 
 export const Features = () => {
   return (
-    <section className="py-20 bg-background">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+    <section className="py-32 bg-gradient-subtle relative overflow-hidden">
+      {/* Premium Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 right-10 w-96 h-96 bg-gradient-primary opacity-5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-10 w-80 h-80 bg-gradient-luxury opacity-5 rounded-full blur-3xl"></div>
+      </div>
+      
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="text-center mb-20">
+          <div className="inline-flex items-center px-6 py-3 rounded-full glass-panel mb-8">
+            <span className="text-sm font-medium text-foreground/80">Premium Features</span>
+          </div>
+          <h2 className="text-5xl lg:text-6xl font-bold mb-8">
             Why Choose
-            <span className="block bg-gradient-primary bg-clip-text text-transparent">
-              EyeAI Platform?
+            <span className="block text-gradient-luxury">
+              EyeAI Premium?
             </span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Combining cutting-edge artificial intelligence with medical expertise 
-            to deliver the most accurate and convenient eye testing experience.
+          <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+            Experience the pinnacle of eye care technology with our premium AI-powered platform. 
+            Combining medical expertise with cutting-edge artificial intelligence.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, index) => {
             const IconComponent = feature.icon;
             return (
               <Card 
                 key={index} 
-                className="p-6 bg-gradient-card shadow-medical hover:shadow-glow transition-all duration-300 hover:scale-105 group"
+                className="glass-card p-8 premium-scale shadow-luxury hover:shadow-glow group border-white/20"
               >
-                <div className="mb-4">
-                  <div className="p-3 bg-gradient-primary rounded-lg w-fit shadow-medical group-hover:animate-pulse-glow">
-                    <IconComponent className="h-6 w-6 text-primary-foreground" />
+                <div className="mb-6">
+                  <div className="relative">
+                    <div className="p-4 bg-gradient-primary rounded-2xl w-fit shadow-luxury group-hover:shadow-glow transition-all duration-500">
+                      <IconComponent className="h-8 w-8 text-primary-foreground" />
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-primary opacity-20 rounded-2xl blur-xl group-hover:opacity-40 transition-all duration-500"></div>
                   </div>
                 </div>
-                <h3 className="text-lg font-semibold mb-3 group-hover:text-primary transition-colors">
+                <h3 className="text-xl font-bold mb-4 group-hover:text-gradient-primary transition-all duration-300">
                   {feature.title}
                 </h3>
-                <p className="text-muted-foreground leading-relaxed">
+                <p className="text-foreground/80 leading-relaxed">
                   {feature.description}
                 </p>
               </Card>

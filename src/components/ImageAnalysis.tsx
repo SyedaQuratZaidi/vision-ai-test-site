@@ -90,50 +90,60 @@ export const ImageAnalysis = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-subtle">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <div className="flex items-center justify-center mb-4">
-            <div className="flex items-center space-x-2">
-              <Zap className="h-6 w-6 text-primary" />
-              <Badge variant="medical" className="text-sm font-medium">
-                Real Google AI Powered
+    <section className="py-32 bg-gradient-subtle relative overflow-hidden">
+      {/* Premium Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-40 left-20 w-72 h-72 bg-gradient-primary opacity-10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-luxury opacity-10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+      </div>
+      
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="text-center mb-16">
+          <div className="flex items-center justify-center mb-6">
+            <div className="inline-flex items-center px-6 py-3 rounded-full glass-panel">
+              <Zap className="h-5 w-5 text-primary mr-2" />
+              <Badge variant="luxury" className="text-sm font-medium border-0">
+                Powered by Google Vision AI
               </Badge>
             </div>
           </div>
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            AI Eye Analysis
+          <h2 className="text-5xl lg:text-6xl font-bold mb-8">
+            <span className="text-gradient-luxury">Premium AI</span>
+            <span className="block">Eye Analysis</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Upload or drag an eye image for instant Google Vision AI analysis. 
-            Our real AI integration provides accurate vision assessment.
+          <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+            Experience next-generation eye analysis with Google's advanced Vision AI. 
+            Upload or drag an eye image for instant professional-grade assessment with medical precision.
           </p>
         </div>
 
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           {!uploadedImage ? (
-            <Card className="p-8 bg-card/90 backdrop-blur-sm border-primary/20">
+            <Card className="glass-card p-12 border-white/30 shadow-luxury">
               <div
-                className={`relative border-2 border-dashed rounded-lg p-12 text-center transition-all duration-300 ${
+                className={`relative border-2 border-dashed rounded-2xl p-16 text-center transition-all duration-500 ${
                   dragActive 
-                    ? 'border-primary bg-primary/5' 
-                    : 'border-muted-foreground/30 hover:border-primary/50'
+                    ? 'border-primary bg-gradient-primary/10 shadow-glow scale-105' 
+                    : 'border-white/30 hover:border-primary/50 hover:bg-gradient-primary/5'
                 }`}
                 onDragEnter={handleDrag}
                 onDragLeave={handleDrag}
                 onDragOver={handleDrag}
                 onDrop={handleDrop}
               >
-                <div className="flex flex-col items-center space-y-4">
-                  <div className="p-4 bg-primary/10 rounded-full">
-                    <Upload className="h-12 w-12 text-primary" />
+                <div className="flex flex-col items-center space-y-6">
+                  <div className="relative">
+                    <div className="p-6 bg-gradient-primary rounded-2xl shadow-luxury">
+                      <Upload className="h-16 w-16 text-primary-foreground" />
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-primary opacity-20 rounded-2xl blur-xl"></div>
                   </div>
                   <div>
-                    <h3 className="text-2xl font-semibold mb-2">
+                    <h3 className="text-3xl font-bold mb-4 text-gradient-primary">
                       Upload Eye Image
                     </h3>
-                    <p className="text-muted-foreground mb-4">
-                      Drag and drop an eye image here, or click to select
+                    <p className="text-foreground/80 mb-6 text-lg">
+                      Drag and drop an eye image here, or click to select for premium AI analysis
                     </p>
                     <input
                       type="file"
@@ -143,44 +153,50 @@ export const ImageAnalysis = () => {
                       id="image-upload"
                     />
                     <label htmlFor="image-upload">
-                      <Button variant="medical" size="lg" className="cursor-pointer">
-                        <Camera className="h-5 w-5 mr-2" />
-                        Select Image
+                      <Button variant="premium" size="xl" className="cursor-pointer">
+                        <Camera className="h-6 w-6 mr-3" />
+                        Select Premium Image
                       </Button>
                     </label>
                   </div>
-                  <p className="text-sm text-muted-foreground">
-                    Supports JPG, PNG, WebP formats • Max 10MB
-                  </p>
+                  <div className="flex items-center space-x-6 text-sm text-foreground/60">
+                    <span>JPG, PNG, WebP</span>
+                    <span>•</span>
+                    <span>Max 10MB</span>
+                    <span>•</span>
+                    <span>Google Vision AI</span>
+                  </div>
                 </div>
               </div>
             </Card>
           ) : (
-            <div className="grid lg:grid-cols-2 gap-8">
-              {/* Image Preview */}
-              <Card className="p-6 bg-card/90 backdrop-blur-sm border-primary/20">
-                <h3 className="text-xl font-semibold mb-4 flex items-center">
-                  <Eye className="h-5 w-5 mr-2 text-primary" />
-                  Uploaded Image
+            <div className="grid lg:grid-cols-2 gap-10">
+              {/* Premium Image Preview */}
+              <Card className="glass-card p-8 border-white/30 shadow-luxury">
+                <h3 className="text-2xl font-bold mb-6 flex items-center text-gradient-primary">
+                  <Eye className="h-6 w-6 mr-3 text-primary" />
+                  Premium Analysis Image
                 </h3>
-                <div className="relative rounded-lg overflow-hidden mb-4">
+                <div className="relative rounded-2xl overflow-hidden mb-6 shadow-luxury">
                   <img 
                     src={uploadedImage} 
                     alt="Uploaded eye" 
-                    className="w-full h-64 object-cover"
+                    className="w-full h-72 object-cover"
                   />
+                  <div className="absolute inset-0 bg-gradient-primary/10"></div>
                 </div>
                 <Button 
                   onClick={resetAnalysis} 
-                  variant="outline" 
+                  variant="glass" 
                   className="w-full"
+                  size="lg"
                 >
                   Upload New Image
                 </Button>
               </Card>
 
-              {/* Analysis Results */}
-              <Card className="p-6 bg-card/90 backdrop-blur-sm border-primary/20">
+              {/* Premium Analysis Results */}
+              <Card className="glass-card p-8 border-white/30 shadow-luxury">
                 <h3 className="text-xl font-semibold mb-4 flex items-center">
                   {analyzing ? (
                     <>

@@ -18,9 +18,11 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        medical: "bg-gradient-primary text-primary-foreground shadow-medical hover:shadow-glow transition-all duration-300 hover:scale-105",
-        "medical-outline": "border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300",
-        "ai-glow": "bg-gradient-hero text-primary-foreground shadow-glow animate-pulse-glow"
+        medical: "bg-gradient-primary text-primary-foreground shadow-luxury hover:shadow-glow transition-all duration-500 hover:scale-105 premium-glow",
+        "medical-outline": "border-2 border-primary/60 bg-gradient-glass backdrop-blur-sm text-primary hover:bg-gradient-primary hover:text-primary-foreground hover:border-primary transition-all duration-500 hover:scale-105 hover:shadow-medical",
+        "ai-glow": "bg-gradient-luxury text-primary-foreground shadow-glow animate-pulse-glow hover:scale-110 transition-all duration-500",
+        "glass": "glass-card text-foreground hover:bg-white/20 hover:shadow-medical transition-all duration-300",
+        "premium": "bg-gradient-luxury text-primary-foreground shadow-luxury hover:shadow-glow hover:scale-105 transition-all duration-500"
       },
       size: {
         default: "h-10 px-4 py-2",
